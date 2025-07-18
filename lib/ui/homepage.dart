@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jtask_flutter/ui/addTaskDialog/addTaskDialog_view.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_view.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
@@ -26,6 +27,17 @@ class _HomePageState extends State<HomePage> {
           Placeholder(),
           Expanded(child: TaskList(viewModel: taskListViewModel,)),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: ()=>{
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => Dialog(
+                child: AddTaskDialog()
+              )
+            )
+          },
+          child: const Icon(Icons.add),
       ),
     );
   }

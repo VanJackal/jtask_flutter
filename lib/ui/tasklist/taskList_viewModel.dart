@@ -9,4 +9,9 @@ class TaskListViewModel extends ChangeNotifier{
   ]; //todo this needs to be a repository
 
   List<Task> get tasks => _tasks;
+
+  void addTask(Task task) {
+    _tasks.add(task);
+    notifyListeners();
+  }
 }
