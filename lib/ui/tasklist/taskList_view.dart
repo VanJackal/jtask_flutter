@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:jtask_flutter/types.dart';
+import 'package:jtask_flutter/domain/models/task.dart';
 
 /*
 todo
