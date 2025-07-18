@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jtask_flutter/ui/addTaskDialog/addTaskDialog_view.dart';
+import 'package:jtask_flutter/ui/tasklist/addTaskDialog.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_view.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
