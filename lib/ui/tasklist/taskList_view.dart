@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:jtask_flutter/domain/models/task.dart';
+import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
 /*
 todo
@@ -8,10 +9,13 @@ This may need to be moved away from table to support subtasks
  */
 
 class TaskList extends StatelessWidget {
-  const TaskList({super.key});
+  const TaskList({super.key, required this.viewModel});
+
+  final TaskListViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
+    var tasks = TaskItem.from(viewModel.tasks);
     return Table(
       columnWidths: const <int, TableColumnWidth> {
         0: FixedColumnWidth(64),
@@ -19,10 +23,7 @@ class TaskList extends StatelessWidget {
         2: IntrinsicColumnWidth()
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: [
-        TaskItem(task: (title: "Task 1", dueDate: DateTime(2025,1, 25), state: true)),//todo this should be stored in a var
-        TaskItem(task: (title: "Task 2", dueDate: DateTime(2025,6, 2), state: true)),
-      ],
+      children: tasks,
     );
   }
 }
@@ -42,4 +43,8 @@ class TaskItem extends TableRow {
       child: Text(task.dueDate.toString()),
     )
   ];
+
+  static List<TaskItem> from(List<Task> tasks) {
+    return tasks.map((t)=> TaskItem(task:t)).toList();
+  }
 }

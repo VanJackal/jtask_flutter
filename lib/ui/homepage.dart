@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_view.dart';
+import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -13,6 +14,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    var taskListViewModel = TaskListViewModel();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -21,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       body: Row(
         children: [
           Placeholder(),
-          Expanded(child: TaskList()),
+          Expanded(child: TaskList(viewModel: taskListViewModel,)),
         ],
       ),
     );
