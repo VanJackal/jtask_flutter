@@ -16,14 +16,18 @@ class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tasks = TaskItem.from(viewModel.tasks);
-    return Table(
-      columnWidths: const <int, TableColumnWidth> {
-        0: FixedColumnWidth(64),
-        1: FlexColumnWidth(1),
-        2: IntrinsicColumnWidth()
-      },
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: tasks,
+    return ListView(
+      children: [
+        Table(
+          columnWidths: const <int, TableColumnWidth> {
+            0: FixedColumnWidth(64),
+            1: FlexColumnWidth(1),
+            2: IntrinsicColumnWidth()
+          },
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          children: tasks,
+        ),
+      ]
     );
   }
 }
