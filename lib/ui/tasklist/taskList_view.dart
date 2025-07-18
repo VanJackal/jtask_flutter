@@ -39,7 +39,7 @@ class TaskItem extends TableRow {
 
   @override
   List<Widget> get children => [
-    Container(height:32, color:Colors.green,),
+    Container(height:32, color: task.state? Colors.green:Colors.red,),
     TableCell(
       child: Text(task.title),
     ),
