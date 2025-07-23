@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jtask_flutter/domain/models/task.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
 class AddTaskDialog extends StatefulWidget {
@@ -17,8 +16,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   DateTime dueDate = DateTime.now();
 
   void _addTaskButton() {
-    Task task = (title:title, dueDate: dueDate, state: false);
-    widget.viewModel.addTask(task);
+    widget.viewModel.addTask(title, dueDate);
   }
   
   void _selectDueDate(BuildContext context) async {

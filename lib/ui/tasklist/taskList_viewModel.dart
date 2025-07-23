@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:jtask_flutter/domain/models/task.dart';
 
 class TaskListViewModel extends ChangeNotifier{
-  List<Task> _tasks = [
-    (title: "Task 1", dueDate: DateTime(2025,1,25), state: true),
-    (title: "Task 2", dueDate: DateTime(2025,1,25), state: true),
-    (title: "Task 3", dueDate: DateTime(2025,1,25), state: false),
-  ]; //todo this needs to be a repository
+  TaskListViewModel(){
+    addTask("task 1", DateTime.now());
+    addTask("task 2", DateTime.now());
+    addTask("task 3", DateTime.now());
+  }
+  
+  List<Task> _tasks = []; //todo this needs to be a repository
 
   List<Task> get tasks => _tasks;
+  int id = 0;
+  
+  
 
-  void addTask(Task task) {
-    _tasks.add(task);
+  void addTask(String title, DateTime dueDate) {
+    _tasks.add((title: title, dueDate: dueDate, state: false, id:id++));
     notifyListeners();
   }
 }
