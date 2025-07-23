@@ -18,7 +18,7 @@ class TaskList extends StatelessWidget {
     return ListenableBuilder(
       listenable: viewModel,
       builder: (context,_) {
-        var tasks = TaskItem.from(viewModel.tasks);
+        var tasks = TaskItem.from(viewModel.getTasks());
         return ListView(
           children: [
             Table(

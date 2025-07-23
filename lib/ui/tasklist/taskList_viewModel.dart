@@ -8,15 +8,16 @@ class TaskListViewModel extends ChangeNotifier{
     addTask("task 3", DateTime.now());
   }
   
-  List<Task> _tasks = []; //todo this needs to be a repository
-
-  List<Task> get tasks => _tasks;
+  final Map<int ,Task> _tasks = <int, Task>{}; //todo this needs to be a repository
   int id = 0;
   
-  
+  List<Task> getTasks() {
+    return _tasks.values.toList();
+  }
 
   void addTask(String title, DateTime dueDate) {
-    _tasks.add((title: title, dueDate: dueDate, state: false, id:id++));
+    var id = this.id++;
+    _tasks[id] = (title: title, dueDate: dueDate, state: false, id:id);
     notifyListeners();
   }
 }
