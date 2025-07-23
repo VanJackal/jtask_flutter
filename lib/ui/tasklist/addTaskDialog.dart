@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:jtask_flutter/domain/models/task.dart';
+import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
 class AddTaskDialog extends StatefulWidget {
-  const AddTaskDialog({super.key});
+  const AddTaskDialog({super.key, required this.viewModel});
+  
+  final TaskListViewModel viewModel;
 
   @override
   State<AddTaskDialog> createState() => _AddTaskDialogState();
@@ -12,6 +16,11 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
   DateTime dueDate = DateTime.now();
 
+  void _addTaskButton() {
+    Task task = (title:title, dueDate: dueDate, state: false);
+    widget.viewModel.addTask(task);
+  }
+  
   void _selectDueDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -52,9 +61,14 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 ),
               ],
             ),
-            TextButton(
-              onPressed: (){Navigator.pop(context);},
-              child: Text("Cancel")
+            Row(
+              children: [
+                ElevatedButton(onPressed: _addTaskButton, child: Text("Add")),
+                TextButton(
+                  onPressed: (){Navigator.pop(context);},
+                  child: Text("Cancel")
+                ),
+              ],
             ),
           ],
         )

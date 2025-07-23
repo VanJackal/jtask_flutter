@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
             showDialog(
               context: context,
               builder: (BuildContext context) => Dialog(
-                child: AddTaskDialog()
+                child: AddTaskDialog(viewModel: taskListViewModel,)
               )
             )
           },
