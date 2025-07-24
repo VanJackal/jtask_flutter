@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jtask_flutter/data/repositories/task_repository.dart';
 import 'package:jtask_flutter/ui/tasklist/addTaskDialog.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_view.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
@@ -15,7 +16,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    var taskListViewModel = TaskListViewModel();
+    ITaskRepository taskRepository = TaskRepositoryStub();
+    var taskListViewModel = TaskListViewModel(taskRepository);
 
     return Scaffold(
       appBar: AppBar(

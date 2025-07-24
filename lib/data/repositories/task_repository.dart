@@ -27,7 +27,7 @@ class TaskRepositoryStub implements ITaskRepository{//todo this should call on s
   @override
   void setState(int id, [bool state = true]) {
     Task t = getTask(id);
-    updateTask(id, (id:id, title: t.title, dueDate: t.dueDate, state: t.state));
+    updateTask(id, (id:id, title: t.title, dueDate: t.dueDate, state: state));
   }
 
   @override

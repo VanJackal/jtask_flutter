@@ -18,7 +18,7 @@ class TaskList extends StatelessWidget {
     return ListenableBuilder(
       listenable: viewModel,
       builder: (context,_) {
-        var tasks = TaskItem.from(viewModel.getTasks());
+        var tasks = TaskItem.from(viewModel.getTasks(), viewModel);
         return ListView(
           children: [
             Table(
@@ -38,13 +38,18 @@ class TaskList extends StatelessWidget {
 }
 
 class TaskItem extends TableRow {
-  const TaskItem({super.key, super.decoration,required this.task});
+  const TaskItem({super.key, super.decoration,required this.task, required this.viewModel});
   
   final Task task;
+  final TaskListViewModel viewModel;
 
   @override
   List<Widget> get children => [
-    Container(height:32, color: task.state? Colors.green:Colors.red,),
+    Container(
+      height:32, 
+      color: task.state? Colors.green:Colors.red,
+      child: IconButton(onPressed: (){viewModel.setDone(task.id, !task.state);}, icon: Icon(task.state ? Icons.check_circle_outline : Icons.circle_outlined )),
+    ),
     TableCell(
       child: Text(task.title),
     ),
@@ -53,7 +58,7 @@ class TaskItem extends TableRow {
     )
   ];
 
-  static List<TaskItem> from(List<Task> tasks) {
-    return tasks.map((t)=> TaskItem(task:t)).toList();
+  static List<TaskItem> from(List<Task> tasks, TaskListViewModel viewModel) {
+    return tasks.map((t)=> TaskItem(task:t, viewModel: viewModel)).toList();
   }
 }
