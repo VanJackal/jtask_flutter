@@ -19,18 +19,33 @@ class TaskList extends StatelessWidget {
       listenable: viewModel,
       builder: (context,_) {
         var tasks = TaskItem.from(viewModel.getTasks(), viewModel);
-        return ListView(
+        return Column(
           children: [
-            Table(
-              columnWidths: const <int, TableColumnWidth> {
-                0: FixedColumnWidth(64),
-                1: FlexColumnWidth(1),
-                2: IntrinsicColumnWidth()
-              },
-              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              children: tasks,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Text("Show Completed"),
+                  Switch(value: viewModel.showCompleted, onChanged: (val){viewModel.showCompleted = val;})
+                ],
+              ),
             ),
-          ]
+            Expanded(
+              child: ListView(
+                children: [
+                  Table(
+                    columnWidths: const <int, TableColumnWidth> {
+                      0: FixedColumnWidth(64),
+                      1: FlexColumnWidth(1),
+                      2: IntrinsicColumnWidth()
+                    },
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    children: tasks,
+                  ),
+                ]
+              ),
+            ),
+          ],
         );
       }
     );
