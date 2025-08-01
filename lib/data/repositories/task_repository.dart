@@ -8,7 +8,7 @@ abstract class ITaskRepository {
   
   void setState(int id, [bool state = true]);
   Task updateTask(int id, Task updated);
-  List<Task> getTasks();
+  List<Task> getTasks([bool showComplete = false]);
   Task getTask(int id);
 }
 
@@ -44,7 +44,11 @@ class TaskRepositoryStub implements ITaskRepository{//todo this should call on s
   }
 
   @override
-  List<Task> getTasks() {
-    return _tasks.values.toList();
-  } 
+  List<Task> getTasks([bool showComplete = false]) {
+    if (showComplete) { // todo this will need to be replaced with proper filtering in version 0.4
+      return _tasks.values.toList();
+    } else {
+      return _tasks.values.where((val) => !val.state).toList();
+    }
+  }
 }

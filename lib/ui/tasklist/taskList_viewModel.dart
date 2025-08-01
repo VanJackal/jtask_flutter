@@ -13,7 +13,7 @@ class TaskListViewModel extends ChangeNotifier{
   bool _showCompleted = false;
   
   List<Task> getTasks() {
-    return taskRepo.getTasks();
+    return taskRepo.getTasks(_showCompleted);
   }
 
   void addTask(String title, DateTime dueDate) {
