@@ -45,10 +45,13 @@ class TaskItem extends TableRow {
 
   @override
   List<Widget> get children => [
-    Container(
-      height:32, 
-      color: task.state? Colors.green:Colors.red,
-      child: IconButton(onPressed: (){viewModel.setDone(task.id, !task.state);}, icon: Icon(task.state ? Icons.check_circle_outline : Icons.circle_outlined )),
+    GestureDetector(
+      onTap: (){viewModel.setDone(task.id, !task.state);},
+      child: Container(
+        height:32, 
+        color: task.state? Colors.green:Colors.red,
+        child:Icon(task.state ? Icons.check_circle_outline : Icons.circle_outlined )
+      ),
     ),
     TableCell(
       child: Text(task.title),
