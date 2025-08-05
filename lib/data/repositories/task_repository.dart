@@ -1,4 +1,3 @@
-import "package:jtask_flutter/data/jtask_database.dart";
 import "package:jtask_flutter/domain/models/task.dart";
 
 abstract class ITaskRepository {
@@ -9,7 +8,7 @@ abstract class ITaskRepository {
   
   void setState(String id, [bool state = true]);
   Task updateTask(String id, Task updated);
-  List<Task> getTasks();
+  List<Task> getTasks([bool showComplete = false]);
   Task getTask(String id);
 }
 
@@ -35,7 +34,7 @@ class TaskRepository implements ITaskRepository {
   }
 
   @override
-  List<Task> getTasks() {
+  List<Task> getTasks([bool showComplete = false]) {
     // TODO: implement getTasks
     return [];
   }

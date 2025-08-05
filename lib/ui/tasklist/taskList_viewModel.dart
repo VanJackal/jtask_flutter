@@ -10,9 +10,10 @@ class TaskListViewModel extends ChangeNotifier{
   }
   
   final ITaskRepository taskRepo;
+  bool _showCompleted = false;
   
   List<Task> getTasks() {
-    return taskRepo.getTasks();
+    return taskRepo.getTasks(_showCompleted);
   }
 
   void addTask(String title, DateTime dueDate) {
@@ -24,4 +25,16 @@ class TaskListViewModel extends ChangeNotifier{
     taskRepo.setState(id, state);
     notifyListeners();
   }
+
+  bool get showCompleted {
+    return _showCompleted;
+  }
+
+  set showCompleted(val){
+    _showCompleted = val;
+    notifyListeners();
+  }
+
+
+
 }
