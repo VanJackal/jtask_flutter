@@ -1,3 +1,4 @@
+import "package:jtask_flutter/data/jtask_database.dart";
 import "package:jtask_flutter/domain/models/task.dart";
 
 abstract class ITaskRepository {
@@ -6,45 +7,48 @@ abstract class ITaskRepository {
   /// note that the id is ignored and the return value contains a generated id
   Task addTask(Task task);
   
-  void setState(int id, [bool state = true]);
-  Task updateTask(int id, Task updated);
+  void setState(String id, [bool state = true]);
+  Task updateTask(String id, Task updated);
   List<Task> getTasks();
-  Task getTask(int id);
+  Task getTask(String id);
 }
 
-class TaskRepositoryStub implements ITaskRepository{//todo this should call on sqlite and will require a full rewrite
-  final Map<int ,Task> _tasks = <int, Task>{};
-  int id = 0;
-
+class TaskRepository implements ITaskRepository {
+  
+  TaskRepository({required this.db});
+  
+  final JTaskDatabase db;
+  
   @override
   Task addTask(Task task) {
-    int id = this.id++;
-    Task t = (id:id, title: task.title, state: task.state, dueDate: task.dueDate);
-    _tasks[id] = t;
+    var stmt = db.sql.prepare("INSERT INTO Tasks (id, title, dueDate, state) VALUES (?,?,?,?)");
+    var id = db.getUUID();
+    stmt.execute([id, task.title, task.dueDate.toIso8601String(), task.state]);
+    Task t = (id: id, title: task.title, dueDate: task.dueDate, state: task.state);//todo should use database result
     return t;
   }
 
   @override
-  void setState(int id, [bool state = true]) {
-    Task t = getTask(id);
-    updateTask(id, (id:id, title: t.title, dueDate: t.dueDate, state: state));
-  }
-
-  @override
-  Task updateTask(int id, Task updated) {
-    _tasks[id] = updated;
-    return updated;
-  }
-
-  @override
-  Task getTask(int id) {
-    Task? t = _tasks[id];
-    if (t == null) throw Exception("Invalid id");
-    return t;
+  Task getTask(String id) {
+    // TODO: implement getTask
+    throw UnimplementedError();
   }
 
   @override
   List<Task> getTasks() {
-    return _tasks.values.toList();
-  } 
+    // TODO: implement getTasks
+    return [];
+  }
+
+  @override
+  void setState(String id, [bool state = true]) {
+    // TODO: implement setState
+  }
+
+  @override
+  Task updateTask(String id, Task updated) {
+    // TODO: implement updateTask
+    throw UnimplementedError();
+  }
+  
 }

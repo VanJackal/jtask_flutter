@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:jtask_flutter/data/jtask_database.dart';
 import 'package:jtask_flutter/ui/homepage.dart';
 import 'package:window_size/window_size.dart';
+import 'package:provider/provider.dart';
 
 
+const String DB_FILE = "jtask.db";
 
 void main() {
-  runApp(const JTask());
+  var db = JTaskDatabase(DB_FILE);
+  runApp(MultiProvider(
+    providers: [
+      Provider(create: (context) => db.tasks)
+    ],
+    child: const JTask(),
+  ));
   
   //set window name
   WidgetsFlutterBinding.ensureInitialized();

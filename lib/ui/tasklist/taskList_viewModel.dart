@@ -16,11 +16,11 @@ class TaskListViewModel extends ChangeNotifier{
   }
 
   void addTask(String title, DateTime dueDate) {
-    taskRepo.addTask((title: title, dueDate: dueDate, state: false, id:-1));
+    taskRepo.addTask((title: title, dueDate: dueDate, state: false, id:"EMPTY"));
     notifyListeners();
   }
   
-  void setDone(int id, [bool state = true]) {
+  void setDone(String id, [bool state = true]) {
     taskRepo.setState(id, state);
     notifyListeners();
   }

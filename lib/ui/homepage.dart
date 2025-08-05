@@ -3,6 +3,7 @@ import 'package:jtask_flutter/data/repositories/task_repository.dart';
 import 'package:jtask_flutter/ui/tasklist/addTaskDialog.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_view.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -16,8 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    ITaskRepository taskRepository = TaskRepositoryStub();
-    var taskListViewModel = TaskListViewModel(taskRepository);
+    var taskListViewModel = TaskListViewModel(context.read<ITaskRepository>());
 
     return Scaffold(
       appBar: AppBar(

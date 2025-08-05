@@ -1,5 +1,5 @@
 typedef Task = ({
-    int id,
+    String id,
     String title,
     DateTime dueDate,
     bool state
