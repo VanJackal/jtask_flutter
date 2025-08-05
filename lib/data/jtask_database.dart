@@ -14,7 +14,6 @@ class JTaskDatabase {
   }
   
   late final Database _sql;
-  Database get sql => _sql;
   final Uuid uuid = Uuid();
   
   late final ITaskRepository _tasks;
@@ -49,5 +48,15 @@ class JTaskDatabase {
   
   String getUUID(){
     return uuid.v4();
+  }
+  
+  void execUpdate(String sql, [List<Object?> params = const []]) {
+    _sql.prepare(sql)
+      ..execute(params)
+      ..dispose();
+  }
+  
+  ResultSet execSelect(String sql, [List<Object?> params = const []]) {
+    return _sql.select(sql,params);
   }
 }

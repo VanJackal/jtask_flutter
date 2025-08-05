@@ -27,15 +27,13 @@ class TaskRepository implements ITaskRepository {
   }
   
   Task _addTask(Task task){
-    var stmt = db.sql.prepare("INSERT INTO Tasks (id, title, dueDate, state) VALUES (?,?,?,?)");
-    stmt.execute([task.id, task.title, task.dueDate.toIso8601String(), task.state]);
-    stmt.dispose();
+    db.execUpdate("INSERT INTO Tasks (id, title, dueDate, state) VALUES (?,?,?,?)",[task.id, task.title, task.dueDate.toIso8601String(), task.state]);
     return task;
   }
 
   @override
   Task? getTask(String id) {
-    ResultSet rs = db.sql.select("SELECT * FROM Tasks WHERE id == ?", [id]);
+    ResultSet rs = db.execSelect("SELECT * FROM Tasks WHERE id == ?", [id]);
     if (rs.isEmpty){
       return null;
     } else {
@@ -46,25 +44,21 @@ class TaskRepository implements ITaskRepository {
   @override
   List<Task> getTasks([bool showComplete = false]) {
     String sql = "SELECT * FROM Tasks${showComplete? ";" : " WHERE state == 0;"}";
-    ResultSet rs = db.sql.select(sql);
+    ResultSet rs = db.execSelect(sql);
     
     return taskFromResultSet(rs);
   }
 
   @override
   void setState(String id, [bool state = true]) {
-    var s = db.sql.prepare("UPDATE Tasks SET state = ? WHERE id == ?");
-    s.execute([state, id]);
-    s.dispose();
+    db.execUpdate("UPDATE Tasks SET state = ? WHERE id == ?", [state, id]);
   }
 
   @override
   Task updateTask(String id, Task updated) {
     // this isn't the best way to do this but the alternative is pretty involved
     assert(id == updated.id);
-    var ds = db.sql.prepare("DELETE FROM Tasks WHERE id == ?");
-    ds.execute([id]);
-    ds.dispose();
+    db.execUpdate("DELETE FROM Tasks WHERE id == ?",[id]);
     return _addTask(updated);
   }
   
