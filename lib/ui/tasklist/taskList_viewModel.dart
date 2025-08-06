@@ -14,7 +14,7 @@ class TaskListViewModel extends ChangeNotifier{
   String _projectId = "";
   
   List<Task> getTasks() {
-    return taskRepo.getTasks(_showCompleted);
+    return taskRepo.getTasks(_projectId, _showCompleted);
   }
 
   void addTask(String title, DateTime dueDate, String project) {

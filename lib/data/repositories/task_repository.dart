@@ -10,7 +10,7 @@ abstract class ITaskRepository {
   
   void setState(String id, [bool state = true]);
   Task updateTask(String id, Task updated);
-  List<Task> getTasks([bool showComplete = false]);
+  List<Task> getTasks(String projectId, [bool showComplete = false]);
   Task? getTask(String id);
 }
 
@@ -42,9 +42,9 @@ class TaskRepository implements ITaskRepository {
   }
 
   @override
-  List<Task> getTasks([bool showComplete = false]) {
-    String sql = "SELECT * FROM Tasks${showComplete? ";" : " WHERE state == 0;"}";
-    ResultSet rs = db.execSelect(sql);
+  List<Task> getTasks(String projectId, [bool showComplete = false]) {
+    String sql = "SELECT * FROM Tasks WHERE projectId == ? ${showComplete? "" : " AND state == 0"};";
+    ResultSet rs = db.execSelect(sql, [projectId]);
     
     return taskFromResultSet(rs);
   }
