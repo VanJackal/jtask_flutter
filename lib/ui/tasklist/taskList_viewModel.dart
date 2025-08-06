@@ -12,8 +12,8 @@ class TaskListViewModel extends ChangeNotifier{
     return taskRepo.getTasks(_showCompleted);
   }
 
-  void addTask(String title, DateTime dueDate) {
-    taskRepo.addTask((title: title, dueDate: dueDate, state: false, id:"EMPTY"));
+  void addTask(String title, DateTime dueDate, String project) {
+    taskRepo.addTask((title: title, dueDate: dueDate, state: false, id:"EMPTY", projectId:project));
     notifyListeners();
   }
   

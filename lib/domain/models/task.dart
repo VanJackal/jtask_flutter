@@ -2,5 +2,6 @@ typedef Task = ({
     String id,
     String title,
     DateTime dueDate,
-    bool state
+    bool state,
+    String? projectId
 });

@@ -23,7 +23,7 @@ class TaskRepository implements ITaskRepository {
   @override
   Task addTask(Task task) {
     var id = db.getUUID();
-    return _addTask((id: id, title: task.title, dueDate: task.dueDate, state: task.state));
+    return _addTask((id: id, title: task.title, dueDate: task.dueDate, state: task.state, projectId:task.projectId));
   }
   
   Task _addTask(Task task){
@@ -67,7 +67,7 @@ class TaskRepository implements ITaskRepository {
 List<Task> taskFromResultSet(ResultSet rs){
   List<Task> tasks = [];
   for (Row r in rs){
-    tasks.add((id:r['id'], title:r['title'], dueDate: DateTime.parse(r['dueDate']), state: r['state'] == 1));
+    tasks.add((id:r['id'], title:r['title'], dueDate: DateTime.parse(r['dueDate']), state: r['state'] == 1, projectId: r['projectId']));
   }
   return tasks;
 }

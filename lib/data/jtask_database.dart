@@ -33,11 +33,20 @@ class JTaskDatabase {
     //todo this should not be using NOT EXISTS condition creation
     // todo this needs a developer mode that forces a reset and prepopulates some data
     _sql.execute('''
+    CREATE TABLE IF NOT EXISTS Projects (
+      id TEXT PRIMARY KEY,
+      title TEXT
+    );
+    ''');
+    
+    _sql.execute('''
     CREATE TABLE IF NOT EXISTS Tasks (
       id TEXT PRIMARY KEY,
+      projectId TEXT,
       title TEXT,
       dueDate TEXT,
-      state INT
+      state INT,
+      FOREIGN KEY(project_id) REFERENCES Tasks(id),
     );
     ''');
   }
