@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:jtask_flutter/data/repositories/project_repository.dart';
 import 'package:jtask_flutter/data/repositories/task_repository.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:uuid/uuid.dart';
@@ -18,6 +19,9 @@ class JTaskDatabase {
   
   late final ITaskRepository _tasks;
   ITaskRepository get tasks => _tasks;
+  
+  late final IProjectRepository _projects;
+  IProjectRepository get projects => _projects;
   
   Future<void> initDB(String path) async {
     File f = File(path);//todo create file if doesnt exist
@@ -53,6 +57,7 @@ class JTaskDatabase {
   
   void initRepos() {
     _tasks = TaskRepository(db: this);
+    _projects = ProjectRepository(db: this);
   }
   
   String getUUID(){

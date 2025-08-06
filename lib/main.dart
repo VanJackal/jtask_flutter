@@ -11,7 +11,8 @@ void main() {
   var db = JTaskDatabase(DB_FILE);
   runApp(MultiProvider(
     providers: [
-      Provider(create: (context) => db.tasks)
+      Provider(create: (context) => db.tasks),
+      Provider(create: (context) => db.projects)
     ],
     child: const JTask(),
   ));

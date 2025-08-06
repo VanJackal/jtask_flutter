@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:jtask_flutter/data/repositories/project_repository.dart';
 import 'package:jtask_flutter/domain/models/project.dart';
 
 class ProjectsViewModel extends ChangeNotifier {
+  ProjectsViewModel({required this.projectRepo});
+  
+  final IProjectRepository projectRepo;
   String _selected = "";
+
 
 
   String get selected => _selected;
@@ -11,12 +16,12 @@ class ProjectsViewModel extends ChangeNotifier {
     notifyListeners();
   }
   
+  void addProject(String title){
+    projectRepo.addProject((title:title, id:"NONE"));
+    notifyListeners();
+  }
+  
   List<Project> get projects {
-    return [
-      (id:"none1", title: "project1"),
-      (id:"none2", title: "project2"),
-      (id:"none3", title: "project3"),
-      (id:"none4", title: "project4"),
-    ];
+    return projectRepo.getProjects();
   }
 }

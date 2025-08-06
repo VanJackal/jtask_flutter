@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jtask_flutter/domain/models/project.dart';
+import 'package:jtask_flutter/ui/projects/addProjectDialog.dart';
 import 'package:jtask_flutter/ui/projects/projects_viewModel.dart';
 
 class Projects extends StatelessWidget {
@@ -18,7 +19,22 @@ class Projects extends StatelessWidget {
       builder: (context,_) {
         return Column(
           children: [
-            Text("Projects"),
+            Row(
+              children: [
+                Text("Projects"),
+                IconButton(
+                    onPressed: (){
+                      showDialog(
+                          context: context, 
+                          builder: (BuildContext context) => Dialog(
+                            child: AddProjectDialog(viewModel: viewModel)
+                          )
+                      );
+                    }, 
+                    icon: Icon(Icons.add)
+                )
+              ],
+            ),
             Expanded(
               child: ListView(
                 scrollDirection: Axis.vertical,

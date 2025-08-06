@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jtask_flutter/data/repositories/project_repository.dart';
 import 'package:jtask_flutter/data/repositories/task_repository.dart';
 import 'package:jtask_flutter/ui/projects/projects_view.dart';
 import 'package:jtask_flutter/ui/projects/projects_viewModel.dart';
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var taskListViewModel = TaskListViewModel(context.read<ITaskRepository>());
-    var projectsViewModel = ProjectsViewModel();
+    var projectsViewModel = ProjectsViewModel(projectRepo:context.read<IProjectRepository>());
     projectsViewModel.addListener((){
       taskListViewModel.projectId = projectsViewModel.selected;
     });
