@@ -46,7 +46,7 @@ class JTaskDatabase {
       title TEXT,
       dueDate TEXT,
       state INT,
-      FOREIGN KEY(project_id) REFERENCES Tasks(id),
+      FOREIGN KEY(projectId) REFERENCES Tasks(id)
     );
     ''');
   }
