@@ -7,6 +7,7 @@ class TaskListViewModel extends ChangeNotifier{
   
   final ITaskRepository taskRepo;
   bool _showCompleted = false;
+  String _projectId = "";
   
   List<Task> getTasks() {
     return taskRepo.getTasks(_showCompleted);
@@ -28,6 +29,11 @@ class TaskListViewModel extends ChangeNotifier{
 
   set showCompleted(val){
     _showCompleted = val;
+    notifyListeners();
+  }
+  
+  set projectId(String id) {
+    _projectId = id;
     notifyListeners();
   }
 
