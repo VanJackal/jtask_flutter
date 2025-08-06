@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:jtask_flutter/data/repositories/project_repository.dart';
 import 'package:jtask_flutter/data/repositories/task_repository.dart';
+import 'package:jtask_flutter/domain/models/project.dart';
 import 'package:jtask_flutter/domain/models/task.dart';
 
 class TaskListViewModel extends ChangeNotifier{
-  TaskListViewModel(this.taskRepo);
+  TaskListViewModel(this.taskRepo, this.projectRepository);
   
   final ITaskRepository taskRepo;
+  final IProjectRepository projectRepository;
+  
   bool _showCompleted = false;
   String _projectId = "";
   
@@ -36,7 +40,9 @@ class TaskListViewModel extends ChangeNotifier{
     _projectId = id;
     notifyListeners();
   }
-
-
+  
+  List<Project> get projects {
+    return projectRepository.getProjects();
+  }
 
 }

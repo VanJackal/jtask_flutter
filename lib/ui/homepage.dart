@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    var taskListViewModel = TaskListViewModel(context.read<ITaskRepository>());
+    var taskListViewModel = TaskListViewModel(context.read<ITaskRepository>(), context.read<IProjectRepository>());
     var projectsViewModel = ProjectsViewModel(projectRepo:context.read<IProjectRepository>());
     projectsViewModel.addListener((){
       taskListViewModel.projectId = projectsViewModel.selected;

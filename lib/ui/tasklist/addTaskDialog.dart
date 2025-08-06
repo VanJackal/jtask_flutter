@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
@@ -12,11 +14,12 @@ class AddTaskDialog extends StatefulWidget {
 
 class _AddTaskDialogState extends State<AddTaskDialog> {
   String title = "";
+  String projectId = "";
 
   DateTime dueDate = DateTime.now();
 
   void _addTaskButton() {
-    widget.viewModel.addTask(title, dueDate);
+    widget.viewModel.addTask(title, dueDate, projectId);
   }
   
   void _selectDueDate(BuildContext context) async {
@@ -38,6 +41,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
       padding: EdgeInsets.all(20),
       child: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
               initialValue: title,
@@ -47,6 +51,26 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               onChanged: (val) => {
                 title = val
               },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownMenu<String>(
+                enableFilter: true,
+                label: const Text("Project"),
+                onSelected: (String? id){
+                  setState(() {
+                      projectId = id!;
+                  });
+                },
+                dropdownMenuEntries: UnmodifiableListView(
+                  widget.viewModel.projects.map((p){
+                    return DropdownMenuEntry(
+                      value: p.id,
+                      label: p.title
+                    );
+                  })
+                )
+              ),
             ),
             Row(
               children: [

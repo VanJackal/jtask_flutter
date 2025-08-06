@@ -27,7 +27,7 @@ class TaskRepository implements ITaskRepository {
   }
   
   Task _addTask(Task task){
-    db.execUpdate("INSERT INTO Tasks (id, title, dueDate, state) VALUES (?,?,?,?)",[task.id, task.title, task.dueDate.toIso8601String(), task.state]);
+    db.execUpdate("INSERT INTO Tasks (id, title, dueDate, state, projectId) VALUES (?,?,?,?,?)",[task.id, task.title, task.dueDate.toIso8601String(), task.state, task.projectId]);
     return task;
   }
 
