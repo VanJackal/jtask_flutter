@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:jtask_flutter/domain/models/task.dart';
+import 'package:jtask_flutter/ui/tasklist/addTaskDialog.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
 /*
@@ -18,7 +19,7 @@ class TaskList extends StatelessWidget {
     return ListenableBuilder(
       listenable: viewModel,
       builder: (context,_) {
-        var tasks = TaskItem.from(viewModel.getTasks(), viewModel);
+        var tasks = TaskItem.from(viewModel.getTasks(), viewModel, context);
         return Column(
           children: [
             Padding(
@@ -54,10 +55,11 @@ class TaskList extends StatelessWidget {
 }
 
 class TaskItem extends TableRow {
-  const TaskItem({super.key, super.decoration,required this.task, required this.viewModel});
+  const TaskItem({super.key, super.decoration,required this.task, required this.viewModel, required this.context});
   
   final Task task;
   final TaskListViewModel viewModel;
+  final BuildContext context;
 
   @override
   List<Widget> get children => [
@@ -76,13 +78,19 @@ class TaskItem extends TableRow {
       child: Text(task.dueDate.toString()),
     ),
     GestureDetector(
-      onTap: (){/*todo open edit dialogue*/},
+      onTap: (){
+        showDialog(context: context, builder: (BuildContext context) => Dialog(
+          child: AddTaskDialog(init:task, viewModel: viewModel, submitText: "Edit", onSubmit: (t){
+            viewModel.updateTask(t);
+          }),
+        ));
+      },
       child: Icon(Icons.edit),
       
     )
   ];
 
-  static List<TaskItem> from(List<Task> tasks, TaskListViewModel viewModel) {
-    return tasks.map((t)=> TaskItem(task:t, viewModel: viewModel)).toList();
+  static List<TaskItem> from(List<Task> tasks, TaskListViewModel viewModel, BuildContext context) {
+    return tasks.map((t)=> TaskItem(task:t, viewModel: viewModel, context: context)).toList();
   }
 }

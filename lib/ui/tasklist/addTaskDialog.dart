@@ -5,25 +5,35 @@ import 'package:jtask_flutter/domain/models/task.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
 class AddTaskDialog extends StatefulWidget {
-  const AddTaskDialog({super.key, required this.viewModel, required this.submitText, required this.onSubmit});
+  const AddTaskDialog({super.key, required this.viewModel, required this.submitText, required this.onSubmit, this.init});
   
   final TaskListViewModel viewModel;
   final Function(Task) onSubmit;
+  final Task? init;
 
   final String submitText;
 
   @override
-  State<AddTaskDialog> createState() => _AddTaskDialogState();
+  State<AddTaskDialog> createState() => _AddTaskDialogState(init);
 }
 
 class _AddTaskDialogState extends State<AddTaskDialog> {
-  String title = "";
-  String projectId = "";
+  _AddTaskDialogState(Task? init){
+    title = init?.title ?? "";
+    projectId = init?.projectId ?? "";
+    dueDate = init?.dueDate ?? DateTime.now();
+    id = init?.id ?? "";
+  }
+  
+  
+  late String title;
+  late String projectId;
+  late DateTime dueDate;
+  late String id;
 
-  DateTime dueDate = DateTime.now();
 
   void _addTaskButton() {
-    widget.onSubmit((title: title, projectId: projectId, dueDate: dueDate, id: "", state: false));
+    widget.onSubmit((title: title, projectId: projectId, dueDate: dueDate, id: id, state: false));
   }
   
   void _selectDueDate(BuildContext context) async {
@@ -61,6 +71,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               child: DropdownMenu<String>(
                 enableFilter: true,
                 label: const Text("Project"),
+                initialSelection: projectId,
                 onSelected: (String? id){
                   setState(() {
                       projectId = id!;
