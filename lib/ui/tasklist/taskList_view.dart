@@ -37,7 +37,8 @@ class TaskList extends StatelessWidget {
                     columnWidths: const <int, TableColumnWidth> {
                       0: FixedColumnWidth(64),
                       1: FlexColumnWidth(1),
-                      2: IntrinsicColumnWidth()
+                      2: IntrinsicColumnWidth(),
+                      3: IntrinsicColumnWidth()
                     },
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: tasks,
@@ -73,6 +74,11 @@ class TaskItem extends TableRow {
     ),
     TableCell(
       child: Text(task.dueDate.toString()),
+    ),
+    GestureDetector(
+      onTap: (){/*todo open edit dialogue*/},
+      child: Icon(Icons.edit),
+      
     )
   ];
 

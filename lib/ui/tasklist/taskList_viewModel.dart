@@ -26,6 +26,16 @@ class TaskListViewModel extends ChangeNotifier{
     taskRepo.setState(id, state);
     notifyListeners();
   }
+  
+  void deleteTask(String id) {
+    taskRepo.deleteTask(id);
+    notifyListeners();
+  }
+  
+  void updateTask(Task updated) {
+    taskRepo.updateTask(updated.id, updated);
+    notifyListeners();
+  }
 
   bool get showCompleted {
     return _showCompleted;

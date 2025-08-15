@@ -10,6 +10,7 @@ abstract class ITaskRepository {
   
   void setState(String id, [bool state = true]);
   Task updateTask(String id, Task updated);
+  void deleteTask(String id);
   List<Task> getTasks(String projectId, [bool showComplete = false]);
   Task? getTask(String id);
 }
@@ -60,6 +61,11 @@ class TaskRepository implements ITaskRepository {
     assert(id == updated.id);
     db.execUpdate("DELETE FROM Tasks WHERE id == ?",[id]);
     return _addTask(updated);
+  }
+
+  @override
+  void deleteTask(String id) {
+    db.execUpdate("DELETE FROM Tasks WHERE id == ?",[id]);
   }
   
 }
