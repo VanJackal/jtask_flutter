@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:jtask_flutter/ui/projects/projects_viewModel.dart';
 
 class AddProjectDialog extends StatefulWidget{
-  const AddProjectDialog({super.key, required this.viewModel});
+  const AddProjectDialog({super.key, required this.viewModel, required this.submitText});
   
   final ProjectsViewModel viewModel;
+
+  final String submitText;
 
   
   @override
@@ -36,7 +38,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
             ),
             Row(
               children: [
-                ElevatedButton(onPressed: _addProjectButton, child: Text("Add")),
+                ElevatedButton(onPressed: _addProjectButton, child: Text(widget.submitText)),
                 TextButton(
                     onPressed: (){Navigator.pop(context);},
                     child: Text("Cancel")

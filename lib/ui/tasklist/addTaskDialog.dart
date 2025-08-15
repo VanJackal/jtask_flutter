@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
 class AddTaskDialog extends StatefulWidget {
-  const AddTaskDialog({super.key, required this.viewModel});
+  const AddTaskDialog({super.key, required this.viewModel, required this.submitText});
   
   final TaskListViewModel viewModel;
+
+  final String submitText;
 
   @override
   State<AddTaskDialog> createState() => _AddTaskDialogState();
@@ -85,7 +87,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
             ),
             Row(
               children: [
-                ElevatedButton(onPressed: _addTaskButton, child: Text("Add")),
+                ElevatedButton(onPressed: _addTaskButton, child: Text(widget.submitText)),
                 TextButton(
                   onPressed: (){Navigator.pop(context);},
                   child: Text("Cancel")
