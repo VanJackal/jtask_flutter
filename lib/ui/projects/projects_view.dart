@@ -27,7 +27,7 @@ class Projects extends StatelessWidget {
                       showDialog(
                           context: context, 
                           builder: (BuildContext context) => Dialog(
-                            child: AddProjectDialog(viewModel: viewModel, submitText: "Add",)
+                            child: AddProjectDialog(viewModel: viewModel, submitText: "Add", onSubmit: (p){viewModel.addProject(p.title);},)
                           )
                       );
                     }, 
