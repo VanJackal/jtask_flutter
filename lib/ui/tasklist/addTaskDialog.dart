@@ -1,12 +1,14 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:jtask_flutter/domain/models/task.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
 class AddTaskDialog extends StatefulWidget {
-  const AddTaskDialog({super.key, required this.viewModel, required this.submitText});
+  const AddTaskDialog({super.key, required this.viewModel, required this.submitText, required this.onSubmit});
   
   final TaskListViewModel viewModel;
+  final Function(Task) onSubmit;
 
   final String submitText;
 
@@ -21,7 +23,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   DateTime dueDate = DateTime.now();
 
   void _addTaskButton() {
-    widget.viewModel.addTask(title, dueDate, projectId);
+    widget.onSubmit((title: title, projectId: projectId, dueDate: dueDate, id: "", state: false));
   }
   
   void _selectDueDate(BuildContext context) async {
