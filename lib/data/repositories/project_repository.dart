@@ -35,6 +35,7 @@ class ProjectRepository implements IProjectRepository{
   @override
   void deleteProject(String id) {
     db.execUpdate("DELETE FROM Projects WHERE id == ?", [id]);
+    db.execUpdate("DELETE FROM Tasks WHERE projectId == ?", [id]);
   }
 
   @override
