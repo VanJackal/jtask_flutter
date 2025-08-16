@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:jtask_flutter/domain/models/project.dart';
+import 'package:jtask_flutter/ui/projects/project_details.dart';
 import 'package:jtask_flutter/ui/projects/projects_viewModel.dart';
 
 class AddProjectDialog extends StatefulWidget{
-  const AddProjectDialog({super.key, required this.viewModel, required this.submitText, required this.onSubmit});
+  const AddProjectDialog({super.key, required this.viewModel});
   
   final ProjectsViewModel viewModel;
-  final Function(Project) onSubmit;
-
-  final String submitText;
 
   
   @override
@@ -16,31 +13,20 @@ class AddProjectDialog extends StatefulWidget{
 }
 
 class _AddProjectDialogState extends State<AddProjectDialog> {
-  String title = "";
-  
-  void _onSubmit() {
-    widget.onSubmit((title: title, id: ""));
-  }
-  
   @override
   Widget build(BuildContext context) {
+    var projectDetails = ProjectDetails.of(widget.viewModel);
     return Padding(
       padding: EdgeInsets.all(20),
       child: Center(
         child: Column(
           children: [
-            TextFormField(
-              initialValue: title,
-              decoration: InputDecoration(
-                labelText: "Title"
-              ),
-              onChanged: (val) => {
-                title = val
-              },
-            ),
+            projectDetails,
             Row(
               children: [
-                ElevatedButton(onPressed: _onSubmit, child: Text(widget.submitText)),
+                ElevatedButton(onPressed: (){
+                  widget.viewModel.addProject(projectDetails.getProject());
+                }, child: Text("Add")),
                 TextButton(
                     onPressed: (){Navigator.pop(context);},
                     child: Text("Cancel")

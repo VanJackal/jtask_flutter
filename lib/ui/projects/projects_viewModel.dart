@@ -16,8 +16,8 @@ class ProjectsViewModel extends ChangeNotifier {
     notifyListeners();
   }
   
-  void addProject(String title){
-    projectRepo.addProject((title:title, id:"NONE"));
+  void addProject(Project project){
+    projectRepo.addProject((title:project.title, id:"NONE"));
     notifyListeners();
   }
   
