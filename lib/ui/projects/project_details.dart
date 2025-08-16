@@ -39,6 +39,7 @@ class ProjectDetails extends StatelessWidget {
 
 class ProjectState {
   ProjectState(Project? init) {
+    print(init);
     id = init?.id ?? "";
     title = init?.title ?? "";
   }
