@@ -24,4 +24,12 @@ class ProjectsViewModel extends ChangeNotifier {
   List<Project> get projects {
     return projectRepo.getProjects();
   }
+  
+  void deleteProject(String id) {
+    projectRepo.deleteProject(id);
+  }
+  
+  void updateProject(String id, Project updated) {
+    projectRepo.updateProject(id, updated);
+  }
 }

@@ -7,6 +7,8 @@ abstract class IProjectRepository {
   Project addProject(Project project);
   /// Get all projects
   List<Project> getProjects();
+  void updateProject(String id, Project updated);
+  void deleteProject(String id);
 }
 
 class ProjectRepository implements IProjectRepository{
@@ -28,6 +30,18 @@ class ProjectRepository implements IProjectRepository{
   List<Project> getProjects() {
     var rs = db.execSelect("SELECT * FROM Projects;");
     return projectFromResultSet(rs);
+  }
+
+  @override
+  void deleteProject(String id) {
+    db.execUpdate("DELETE FROM Projects WHERE id == ?", [id]);
+  }
+
+  @override
+  void updateProject(String id, Project updated) {
+    assert( id == updated.id);
+    db.execUpdate("DELETE FROM Projects WHERE id == ?", [id]);
+    _addProject(updated);
   }
   
 }
