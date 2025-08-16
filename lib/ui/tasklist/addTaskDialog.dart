@@ -1,115 +1,43 @@
-import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:jtask_flutter/domain/models/task.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
+import 'package:jtask_flutter/ui/tasklist/task_details.dart';
 
 class AddTaskDialog extends StatefulWidget {
-  const AddTaskDialog({super.key, required this.viewModel, required this.submitText, required this.onSubmit, this.init});
+  const AddTaskDialog({super.key, required this.viewModel});
   
   final TaskListViewModel viewModel;
-  final Function(Task) onSubmit;
-  final Task? init;
 
-  final String submitText;
 
   @override
-  State<AddTaskDialog> createState() => _AddTaskDialogState(init);
+  State<AddTaskDialog> createState() => _AddTaskDialogState();
 }
 
 class _AddTaskDialogState extends State<AddTaskDialog> {
-  _AddTaskDialogState(Task? init){
-    title = init?.title ?? "";
-    projectId = init?.projectId ?? "";
-    dueDate = init?.dueDate ?? DateTime.now();
-    id = init?.id ?? "";
-  }
   
-  
-  late String title;
-  late String projectId;
-  late DateTime dueDate;
-  late String id;
-
-
-  void _addTaskButton() {
-    widget.onSubmit((title: title, projectId: projectId, dueDate: dueDate, id: id, state: false));
-  }
-  
-  void _selectDueDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2100)
-    );
-    if (picked != null && picked != dueDate){
-      setState(() {
-        dueDate = picked;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    var taskDetails = TaskDetails.of(widget.viewModel);
     return Padding(
       padding: EdgeInsets.all(20),
       child: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextFormField(
-              initialValue: title,
-              decoration: InputDecoration(
-                labelText: 'Title'
-              ),
-              onChanged: (val) => {
-                title = val
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DropdownMenu<String>(
-                enableFilter: true,
-                label: const Text("Project"),
-                initialSelection: projectId,
-                onSelected: (String? id){
-                  setState(() {
-                      projectId = id!;
-                  });
-                },
-                dropdownMenuEntries: UnmodifiableListView(
-                  widget.viewModel.projects.map((p){
-                    return DropdownMenuEntry(
-                      value: p.id,
-                      label: p.title
-                    );
-                  })
-                )
-              ),
-            ),
+            taskDetails,
             Row(
               children: [
-                Text("Due: "),
+                ElevatedButton(onPressed: (){
+                  widget.viewModel.addTask(taskDetails.getTask());
+                }, child: Text("Add")),
                 TextButton(
-                  onPressed: (){
-                    _selectDueDate(context);
-                  },
-                  child: Text("$dueDate"),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                ElevatedButton(onPressed: _addTaskButton, child: Text(widget.submitText)),
-                TextButton(
-                  onPressed: (){Navigator.pop(context);},
-                  child: Text("Cancel")
+                    onPressed: (){Navigator.pop(context);},
+                    child: Text("Cancel")
                 ),
               ],
             ),
           ],
-        )
-      ),
+        ),
+      )
     );
   }
 }

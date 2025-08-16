@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:jtask_flutter/domain/models/task.dart';
-import 'package:jtask_flutter/ui/tasklist/addTaskDialog.dart';
+import 'package:jtask_flutter/ui/tasklist/editTaskDialog.dart';
 import 'package:jtask_flutter/ui/tasklist/taskList_viewModel.dart';
 
 /*
@@ -80,9 +80,7 @@ class TaskItem extends TableRow {
     GestureDetector(
       onTap: (){
         showDialog(context: context, builder: (BuildContext context) => Dialog(
-          child: AddTaskDialog(init:task, viewModel: viewModel, submitText: "Edit", onSubmit: (t){
-            viewModel.updateTask(t);
-          }),
+          child: EditTaskDialog(initTask:task, viewModel: viewModel,)
         ));
       },
       child: Icon(Icons.edit),
