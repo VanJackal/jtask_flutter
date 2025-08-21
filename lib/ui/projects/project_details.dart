@@ -45,7 +45,7 @@ class ProjectState {
   }
   
   Project toProject(){
-    return (id:id, title:title);
+    return Project(id:id, title:title);
   }
   
   late String id;

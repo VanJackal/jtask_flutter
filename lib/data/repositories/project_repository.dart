@@ -18,7 +18,7 @@ class ProjectRepository implements IProjectRepository{
   @override
   Project addProject(Project project) {
     var id = db.getUUID();
-    return _addProject((id:id, title: project.title));
+    return _addProject(Project(id:id, title: project.title));
   }
   
   Project _addProject(Project project){
@@ -50,7 +50,7 @@ class ProjectRepository implements IProjectRepository{
 List<Project> projectFromResultSet(ResultSet rs){
   List<Project> projects = [];
   for (Row r in rs) {
-    projects.add((id:r['id'], title:r['title']));
+    projects.add(Project(id:r['id'], title:r['title']));
   }
   return projects;
 }
