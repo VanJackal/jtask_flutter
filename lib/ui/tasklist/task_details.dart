@@ -94,7 +94,7 @@ class TaskState {
   late bool state;
   
   Task toTask(){
-    return (title: title, projectId: projectId, dueDate: dueDate, id:id, state:state);
+    return Task(title: title, projectId: projectId, dueDate: dueDate, id:id, state:state);
   }
   
 }
